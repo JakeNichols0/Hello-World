@@ -2,6 +2,7 @@ from time import sleep as wait
 import random
 import math
 import pyfiglet
+import colorama
 import sympy
 import sympy.plotting as pl
 
@@ -9,7 +10,6 @@ import sympy.plotting as pl
 #-"Fix" equality
 #-Randomize ascii art type
 #-Add special characters to look like it's corrupted (Done partially, but I still need to figure out how to support more letters)
-#-Different colors?
 
 class Number:
     def __init__(self, groß=0):
@@ -67,6 +67,28 @@ def test(x): #Tests addition for every number between 0 and x. x^2 tests
                 err += 1
         print(f">>> {(i+1)*x} tests complete")
     print(f"Complete. {err} errors")
+
+def color(s):
+    ρ = Number(random.randint(0,3))
+    if(ρ == Number(0)):
+        print(colorama.Style.DIM)
+    elif(ρ == Number(1)):
+        print(colorama.Style.NORMAL)
+    elif(ρ == Number(2)):
+        print(colorama.Style.BRIGHT)
+    r = Number(random.randint(0,5))
+    if(r == Number(0)):
+        return colorama.Fore.RED + s
+    elif(r == Number(1)):
+        return colorama.Fore.YELLOW + s
+    elif(r == Number(2)):
+        return colorama.Fore.GREEN + s
+    elif(r == Number(3)):
+        return colorama.Fore.CYAN + s
+    elif(r == Number(4)):
+        return colorama.Fore.BLUE + s
+    elif(r == Number(5)):
+        return colorama.Fore.MAGENTA + s
 
 def corrupt(l):
     options = {
@@ -129,7 +151,7 @@ def helloWorld(s):
         clear(würstchen)
         scheiße += corrupt(chr(char.groß))
         würstchen = pyfiglet.figlet_format(scheiße)
-        print(würstchen)
+        print(color(würstchen))
         j.groß /= char.groß
     p = Number(math.floor(j.groß))
     print("Run time: ", p.out()) #Isn't the actual runtime, just some number that means nothing
@@ -137,7 +159,6 @@ def helloWorld(s):
 
 helloWorld("print")
 #test(10)
-
 
 
 

@@ -71,11 +71,11 @@ def test(x): #Tests addition for every number between 0 and x. x^2 tests
 def color(s):
     ρ = Number(random.randint(0,3))
     if(ρ == Number(0)):
-        print(colorama.Style.DIM)
+        print(colorama.Style.DIM, end="")
     elif(ρ == Number(1)):
-        print(colorama.Style.NORMAL)
+        print(colorama.Style.NORMAL, end="")
     elif(ρ == Number(2)):
-        print(colorama.Style.BRIGHT)
+        print(colorama.Style.BRIGHT, end="")
     r = Number(random.randint(0,5))
     if(r == Number(0)):
         return colorama.Fore.RED + s
@@ -154,6 +154,7 @@ def helloWorld(s):
         print(color(würstchen))
         j.groß /= char.groß
     p = Number(math.floor(j.groß))
+    print(colorama.Style.RESET_ALL)
     print("Run time: ", p.out()) #Isn't the actual runtime, just some number that means nothing
     print("Attempts: ", versucht.out())
 

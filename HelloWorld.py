@@ -2,11 +2,33 @@ from time import sleep as wait
 import random
 import math
 import pyfiglet
+import colorama
 
 #To do list:
 #-"Fix" equality
 #-Randomize ascii art type
 #-Add special characters to look like it's corrupted (Done partially, but I still need to figure out how to support more letters)
+def color(s):
+    ρ = random.randint(0,3)
+    if(ρ == 0):
+        print(colorama.Style.DIM)
+    elif(ρ == 1):
+        print(colorama.Style.NORMAL)
+    elif(ρ == 2):
+        print(colorama.Style.BRIGHT)
+    r = random.randint(0,5)
+    if(r == 0):
+        return colorama.Fore.RED + s
+    elif(r == 1):
+        return colorama.Fore.YELLOW + s
+    elif(r == 2):
+        return colorama.Fore.GREEN + s
+    elif(r == 3):
+        return colorama.Fore.CYAN + s
+    elif(r == 4):
+        return colorama.Fore.BLUE + s
+    elif(r == 5):
+        return colorama.Fore.MAGENTA + s
 
 def corrupt(l):
     options = {
@@ -67,12 +89,12 @@ def helloWorld(s):
         clear(Würstchen)
         Scheiße += corrupt(chr(char))
         Würstchen = pyfiglet.figlet_format(Scheiße)
-        print(Würstchen)
+        print(color(Würstchen))
         j /= char
+    print(colorama.Style.RESET_ALL)
     print("Run time = ", chr(math.floor(j)))
 
 helloWorld("print")
-
 
 
 

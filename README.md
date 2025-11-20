@@ -2,9 +2,7 @@
 Prints "Hello World!" as efficently as possible.
 
 # Requirements
-## Pyfiglet
-To install run `pip install pyfiglet` in powershell
-## Colorama
-run `pip install colorama`
-## SymPy
-Run `pip install sympy` in powershell
+## 1. Create VENV
+Run `python -m venv venv` in powershell
+## 2. Install libraries
+Run `pip install -r requirements.txt`

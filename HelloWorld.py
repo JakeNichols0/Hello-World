@@ -2,7 +2,6 @@ from time import sleep as wait
 import random
 import math
 import pyfiglet
-import colorama
 import sympy
 import sympy.plotting as pl
 
@@ -69,26 +68,8 @@ def test(x): #Tests addition for every number between 0 and x. x^2 tests
     print(f"Complete. {err} errors")
 
 def color(s):
-    ρ = Number(random.randint(0,3))
-    if(ρ == Number(0)):
-        print(colorama.Style.DIM, end="")
-    elif(ρ == Number(1)):
-        print(colorama.Style.NORMAL, end="")
-    elif(ρ == Number(2)):
-        print(colorama.Style.BRIGHT, end="")
-    r = Number(random.randint(0,5))
-    if(r == Number(0)):
-        return colorama.Fore.RED + s
-    elif(r == Number(1)):
-        return colorama.Fore.YELLOW + s
-    elif(r == Number(2)):
-        return colorama.Fore.GREEN + s
-    elif(r == Number(3)):
-        return colorama.Fore.CYAN + s
-    elif(r == Number(4)):
-        return colorama.Fore.BLUE + s
-    elif(r == Number(5)):
-        return colorama.Fore.MAGENTA + s
+    print(f"\033[{Number(random.randint(0,4)).groß};{Number(random.randint(3,4)).groß}{Number(random.randint(1,6)).groß}m" + s)
+    print("\033[0m", end="")
 
 def corrupt(l):
     options = {
@@ -151,10 +132,9 @@ def helloWorld(s):
         clear(würstchen)
         scheiße += corrupt(chr(char.groß))
         würstchen = pyfiglet.figlet_format(scheiße)
-        print(color(würstchen))
+        color(würstchen)
         j.groß /= char.groß
     p = Number(math.floor(j.groß))
-    print(colorama.Style.RESET_ALL)
     print("Run time: ", p.out()) #Isn't the actual runtime, just some number that means nothing
     print("Attempts: ", versucht.out())
 

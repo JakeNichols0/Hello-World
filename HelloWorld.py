@@ -1,8 +1,6 @@
 from time import sleep as wait
 import random
 import math
-import sympy
-import sympy.plotting as pl
 import io
 
 #To do list:
@@ -32,26 +30,16 @@ class Number:
     
     def __add__(self, value):
         if(self.groß == value.groß):
-            return self.groß * 2
+            return Number(round(math.log(math.sinh(self.groß) + math.cosh(value.groß),math.e) * 2))
         elif(self.groß == 0):
-            return value.groß
+            return value
         elif(value.groß == 0):
-            return self.groß
+            return self
         else:
-            a = math.sqrt(self.groß) #Constants
-            b = math.sqrt(value.groß)
-            x = sympy.symbols('x') #Varibles
-            anti0 = sympy.integrate(sympy.ln(a * x), x)
-            anti1 = sympy.integrate(sympy.ln(b * x), x)
-            d = sympy.diff(anti0 + anti1)
-            terms = []
-            for i in d.args:
-                if(x in i.free_symbols):
-                    terms.append(i)
-            output = 0.0
-            for j in terms:
-                output += sympy.N(sympy.E**(j), subs = {x: 1})**2
-            return int(str(output).split(".")[0])
+            a = round(math.gamma(random.randint(6,9)))
+            num = math.asinh(math.sinh(self.groß / a) * math.cosh(value.groß / a) + math.cosh(self.groß / a) * math.sinh(value.groß / a))
+            denom = math.pow(math.sqrt(1 / a) * math.sin(self.groß - value.groß), 2) + math.pow(math.sqrt(1 / a) * math.cos(self.groß - value.groß), 2)
+            return Number(round(num/denom))
 
     def out(self):
         return f"{self} ( {self.groß} )"
@@ -139,7 +127,7 @@ def helloWorld(s):
         char = Number()
         while (not (char == Number(ord(i)))):
             char.groß = random.randint(32, 122)
-            j.groß += char.groß
+            j = j + char
             versucht.groß += 1
             wait(char.groß/10000)
         clear(würstchen)

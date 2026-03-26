@@ -1,14 +1,17 @@
 from time import sleep as wait
 import random
 import math
-import pyfiglet
 import sympy
 import sympy.plotting as pl
+import io
 
 #To do list:
 #-"Fix" equality
 #-Randomize ascii art type
 #-Add special characters to look like it's corrupted (Done partially, but I still need to figure out how to support more letters)
+fotzen = {}
+with io.open("fonts/font.txt", mode="r", encoding="utf-8") as font:
+    exec("fotzen = " + font.read())
 
 class Number:
     def __init__(self, groß=0):
@@ -73,32 +76,32 @@ def color(s):
 
 def corrupt(l):
     options = {
-        'a': ['a','ä', 'ā', 'ă', 'ą',], #'à','á','â','ã','å','æ'
-        'b': ['b'],
+        'a': ['a','ä', 'ā', 'ă', 'ą', 'α'], #'à','á','â','ã','å','æ'
+        'b': ['b', 'β'],
         'c': ['c', 'ć', 'ĉ', 'ċ', 'č'], #'ç'
-        'd': ['d', 'ď', 'đ'], #'ð'
-        'e': ['e', 'ē', 'ĕ', 'ė', 'ę', 'ě'], #'è','é','ê','ë'
-        'f': ['f'], #'ƒ'
-        'g': ['g', 'ĝ', 'ğ', 'ġ', 'ģ'],
+        'd': ['d', 'ď', 'đ', 'δ'], #'ð'
+        'e': ['e', 'ē', 'ĕ', 'ė', 'ę', 'ě', 'ε', 'η'], #'è','é','ê','ë'
+        'f': ['f', 'φ'], #'ƒ'
+        'g': ['g', 'ĝ', 'ğ', 'ġ', 'ģ', 'γ'],
         'h': ['h', 'ĥ', 'ħ'],
-        'i': ['i', 'ĩ', 'ī', 'ĭ', 'į', 'i̇', 'ı'], #'ì','í','î','ï'
+        'i': ['i', 'ĩ', 'ī', 'ĭ', 'į', 'i̇', 'ı', 'ι'], #'ì','í','î','ï'
         'j': ['j', 'ĵ'],
         'k': ['k', 'ķ', 'ĸ'],
-        'l': ['l', 'ĺ', 'ļ', 'ľ', 'ŀ', 'ł'],
-        'm': ['m'],
-        'n': ['n','ń', 'ņ', 'ň', 'ŉ', 'ŋ'], #'ñ'
-        'o': ['o','ö','œ', 'ō', 'ŏ', 'ő'], #'ò','ó','ô','õ','ø'
-        'p': ['p'],
+        'l': ['l', 'ĺ', 'ļ', 'ľ', 'ŀ', 'ł', 'λ'],
+        'm': ['m', 'μ'],
+        'n': ['n','ń', 'ņ', 'ň', 'ŉ', 'ŋ', 'ν'], #'ñ'
+        'o': ['o','ö','œ', 'ō', 'ŏ', 'ő', 'ο', 'ω'], #'ò','ó','ô','õ','ø'
+        'p': ['p', 'π'],
         'q': ['q'],
-        'r': ['r', 'ŕ', 'ŗ', 'ř'],
-        's': ['s','š','ß', 'ś', 'ŝ', 'ş', 'ſ'],
-        't': ['t', 'ţ', 'ť', 'ŧ'], #'þ'
+        'r': ['r', 'ŕ', 'ŗ', 'ř', 'ρ'],
+        's': ['s','š','ß', 'ś', 'ŝ', 'ş', 'ſ', 'σ', 'ς'],
+        't': ['t', 'ţ', 'ť', 'ŧ', 'τ'], #'þ'
         'u': ['u','ü', 'ũ', 'ū', 'ŭ', 'ů', 'ű', 'ų'], #'ù','ú','û'
         'v': ['v'],
         'w': ['w', 'ŵ'],
-        'x': ['x'],
-        'y': ['y', 'ŷ', 'ÿ'], #'ý','ÿ'
-        'z': ['z','ž', 'ź', 'ż']
+        'x': ['x', 'ξ'],
+        'y': ['y', 'ŷ', 'ÿ', 'υ'], #'ý','ÿ'
+        'z': ['z','ž', 'ź', 'ż', 'ζ']
     }
     low = l.lower()
     if(low in options.keys()):
@@ -112,6 +115,16 @@ def corrupt(l):
 def clear(pre):
     for i in range(pre.count("\n") + 1):
         print("\033[1A""\x1b[2K", end="")
+
+def format(text):
+    arr = []
+    for t in text:
+        for i in range(len(fotzen[t])):
+            try:
+                arr[i] += fotzen[t][i]
+            except:
+                arr.append(fotzen[t][i])
+    return "\n".join(arr)
 
 def helloWorld(s):
     if(s == "p""r""i""n""t"):
@@ -131,7 +144,7 @@ def helloWorld(s):
             wait(char.groß/10000)
         clear(würstchen)
         scheiße += corrupt(chr(char.groß))
-        würstchen = pyfiglet.figlet_format(scheiße)
+        würstchen = format(scheiße)
         color(würstchen)
         j.groß /= char.groß
     p = Number(math.floor(j.groß))
